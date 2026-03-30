@@ -2,7 +2,7 @@
 // datos del grafo de rutas entre capitales departamentales de colombia
 // fuente de costos: distancias aproximadas por carretera en kilometros
 // fuente de coordenadas: latitud/longitud geografica de cada capital
-// solo se modelan las conexiones representadas por lineas rojas en la figura 1 del enunciado
+// solo se modelan las conexiones representadas en la figura del enunciado
 
 // coordenadas [latitud, longitud] de cada capital departamental
 export const capitals = {
@@ -37,172 +37,147 @@ export const capitals = {
   "Puerto Carreno":        [6.1891,  -67.4865],
   "Leticia":               [-4.2153, -69.9406],
   "Sincelejo":             [9.3047,  -75.3978],
-  "San Andres":            [12.5847, -81.7006],
 };
 
 // grafo de adyacencia: { ciudad: { vecino: costo_en_km } }
 // el grafo es no dirigido — cada conexion aparece en ambas direcciones
 // el costo elegido es kilometros de carretera porque refleja el presupuesto de viaje del usuario
 export const graph = {
-  "Bogota": {
-    "Tunja":                  147,
-    "Villavicencio":           89,
-    "Ibague":                 204,
-    "Neiva":                  302,
-    "Medellin":               414,
-    "Bucaramanga":            410,
-  },
-  "Medellin": {
-    "Bogota":                 414,
-    "Manizales":              187,
-    "Monteria":               347,
-    "Quibdo":                 346,
-    "Pereira":                166,
-  },
-  "Cali": {
-    "Popayan":                130,
-    "Armenia":                182,
-    "Pereira":                215,
-    "Ibague":                 250,
-    "Pasto":                  456,
-  },
-  "Barranquilla": {
-    "Cartagena":              120,
-    "Santa Marta":             90,
-    "Valledupar":             271,
-    "Monteria":               283,
-  },
-  "Cartagena": {
-    "Barranquilla":           120,
-    "Monteria":               194,
-    "Sincelejo":              140,
-  },
-  "Cucuta": {
-    "Bucaramanga":            196,
-    "Arauca":                 470,
-    "Valledupar":             412,
-  },
-  "Bucaramanga": {
-    "Cucuta":                 196,
-    "Tunja":                  213,
-    "Yopal":                  365,
-    "Bogota":                 410,
-  },
-  "Pereira": {
-    "Medellin":               166,
-    "Manizales":               55,
-    "Armenia":                 55,
-    "Cali":                   215,
-  },
-  "Manizales": {
-    "Medellin":               187,
-    "Pereira":                 55,
-    "Armenia":                 88,
-    "Bogota":                 290,
-    "Ibague":                 160,
-  },
-  "Armenia": {
-    "Manizales":               88,
-    "Pereira":                 55,
-    "Cali":                   182,
-    "Ibague":                 105,
-  },
-  "Ibague": {
-    "Bogota":                 204,
-    "Armenia":                105,
-    "Manizales":              160,
-    "Neiva":                  155,
-    "Cali":                   250,
-  },
-  "Neiva": {
-    "Bogota":                 302,
-    "Ibague":                 155,
-    "Popayan":                273,
-    "Florencia":              219,
-  },
-  "Pasto": {
-    "Popayan":                249,
-    "Mocoa":                  118,
-    "Cali":                   456,
-  },
-  "Popayan": {
-    "Cali":                   130,
-    "Neiva":                  273,
-    "Pasto":                  249,
-    "Florencia":              295,
-  },
-  "Tunja": {
-    "Bogota":                 147,
-    "Bucaramanga":            213,
-    "Yopal":                  197,
-  },
-  "Villavicencio": {
-    "Bogota":                  89,
-    "Yopal":                  245,
-    "San Jose del Guaviare":  350,
-  },
-  "Florencia": {
-    "Neiva":                  219,
-    "Popayan":                295,
-    "Mocoa":                  255,
-  },
-  "Mocoa": {
-    "Pasto":                  118,
-    "Florencia":              255,
-  },
-  "Monteria": {
-    "Cartagena":              194,
-    "Barranquilla":           283,
-    "Sincelejo":               95,
-    "Medellin":               347,
+  "Riohacha": {
+    "Valledupar":             177,
   },
   "Valledupar": {
-    "Barranquilla":           271,
-    "Riohacha":               165,
-    "Santa Marta":            220,
-    "Cucuta":                 412,
-  },
-  "Riohacha": {
-    "Valledupar":             165,
-    "Santa Marta":            160,
-    "Barranquilla":           310,
+    "Riohacha":               177,
+    "Santa Marta":            242,
+    "Barranquilla":           295,
+    "Cucuta":                 437,
   },
   "Santa Marta": {
-    "Barranquilla":            90,
-    "Riohacha":               160,
-    "Valledupar":             220,
+    "Valledupar":             242,
   },
-  "Quibdo": {
-    "Medellin":               346,
-    "Monteria":               340,
+  "Barranquilla": {
+    "Cartagena":              123,
+    "Valledupar":             295,
   },
-  "Yopal": {
-    "Tunja":                  197,
-    "Bucaramanga":            365,
-    "Villavicencio":          245,
-    "Arauca":                 356,
-  },
-  "Arauca": {
-    "Cucuta":                 470,
-    "Yopal":                  356,
+  "Cartagena": {
+    "Barranquilla":           123,
+    "Sincelejo":              157,
+    "Bucaramanga":            565,
   },
   "Sincelejo": {
-    "Cartagena":              140,
-    "Monteria":                95,
-    "Barranquilla":           210,
+    "Monteria":                97,
+    "Cartagena":              157,
+    "Bucaramanga":            480,
   },
-  "San Jose del Guaviare": {
-    "Villavicencio":          350,
-    "Inirida":                580,
+  "Monteria": {
+    "Sincelejo":               97,
+    "Medellin":               375,
+  },
+  "Medellin": {
+    "Manizales":              190,
+    "Monteria":               375,
+    "Quibdo":                 347,
+    "Tunja":                  315,
+  },
+  "Quibdo": {
+    "Medellin":               347,
+  },
+  "Manizales": {
+    "Ibague":                 163,
+    "Pereira":                 53,
+    "Bogota":                 287,
+    "Medellin":               190,
+  },
+  "Pereira": {
+    "Manizales":               53,
+    "Armenia":                 53,
+  },
+  "Armenia": {
+    "Cali":                   188,
+    "Pereira":                 53,
+    "Ibague":                 104,
+  },
+  "Cali": {
+    "Armenia":                188,
+    "Popayan":                143,
+  },
+  "Popayan": {
+    "Cali":                   143,
+    "Pasto":                  258,
+    "Florencia":              308,
+    "Neiva":                  282,
+  },
+  "Pasto": {
+    "Popayan":                258,
+    "Mocoa":                  122,
+  },
+  "Mocoa": {
+    "Pasto":                  122,
+    "Florencia":              247,
+  },
+  "Florencia": {
+    "Popayan":                308,
+    "Mocoa":                  247,
+  },
+  "Neiva": {
+    "Ibague":                 157,
+    "Popayan":                282,
+  },
+  "Ibague": {
+    "Manizales":              163,
+    "Armenia":                104,
+    "Neiva":                  157,
+    "Bogota":                 203,
+  },
+  "Bogota": {
+    "Manizales":              287,
+    "Ibague":                 203,
+    "Villavicencio":           93,
+    "Tunja":                  148,
+  },
+  "Tunja": {
+    "Bogota":                 148,
+    "Medellin":               315,
+    "Yopal":                  199,
+    "Bucaramanga":            212,
+  },
+  "Bucaramanga": {
+    "Arauca":                 533,
+    "Tunja":                  212,
+    "Cucuta":                 199,
+    "Sincelejo":              480,
+    "Cartagena":              565,
+  },
+  "Cucuta": {
+    "Valledupar":             437,
+    "Bucaramanga":            199,
+  },
+  "Arauca": {
+    "Yopal":                  338,
+    "Bucaramanga":            533,
+  },
+  "Yopal": {
+    "Puerto Carreno":         682,
+    "Tunja":                  199,
+    "Arauca":                 338,
+  },
+  "Puerto Carreno": {
+    "Inirida":                755,
+    "Yopal":                  682,
   },
   "Inirida": {
-    "San Jose del Guaviare":  580,
+    "Puerto Carreno":         755,
   },
-  // estas ciudades existen como nodos pero no tienen conexiones por carretera en el mapa
-  "Mitu":           {},
-  "Puerto Carreno": {},
+  "Villavicencio": {
+    "San Jose del Guaviare":  318,
+    "Bogota":                  93,
+  },
+  "San Jose del Guaviare": {
+    "Villavicencio":          318,
+  },
+  // estas ciudades no tienen conexiones por carretera en el mapa
   "Leticia":        {},
-  "San Andres":     {},
+  "Mitu":           {},
 };
 
 // lista ordenada alfabeticamente de ciudades para los selectores de la ui

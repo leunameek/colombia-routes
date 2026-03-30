@@ -4,7 +4,8 @@
   import MapView from './lib/MapView.svelte';
   import { ucs } from './lib/ucs.js';
   import { dfs } from './lib/dfs.js';
-  import { graph, cityList } from './lib/graph.js';
+  import { astar } from './lib/astar.js';
+  import { graph, cityList, capitals } from './lib/graph.js';
   import { history, addToHistory, clearHistory } from './lib/history.js';
 
   // ciudad de origen seleccionada por el usuario
@@ -13,7 +14,7 @@
   // ciudad de destino seleccionada por el usuario
   let destination = 'Medellin';
 
-  // estrategia de busqueda activa: 'ucs' o 'dfs'
+  // estrategia de busqueda activa: 'ucs', 'dfs' o 'astar'
   let algorithm = 'ucs';
 
   // resultado de la ultima busqueda ejecutada
@@ -44,8 +45,11 @@
 
     // usar setTimeout para permitir que svelte actualice el dom antes de bloquear con el algoritmo
     setTimeout(() => {
-      const searchFn = algorithm === 'ucs' ? ucs : dfs;
-      const found = searchFn(graph, origin, destination);
+      const found = algorithm === 'astar'
+        ? astar(graph, origin, destination, capitals)
+        : algorithm === 'ucs'
+          ? ucs(graph, origin, destination)
+          : dfs(graph, origin, destination);
       isSearching = false;
 
       if (!found) {
@@ -59,7 +63,7 @@
       addToHistory({
         origin,
         destination,
-        algorithm: algorithm === 'ucs' ? 'Costo Uniforme' : 'Profundidad',
+        algorithm: algorithm === 'ucs' ? 'Costo Uniforme' : algorithm === 'astar' ? 'A*' : 'Profundidad',
         path: found.path,
         cost: found.cost,
         steps: found.path.length,
@@ -79,7 +83,7 @@
   }
 
   // nombre legible del algoritmo activo para mostrar en resultados
-  $: algorithmLabel = algorithm === 'ucs' ? 'Costo Uniforme (UCS)' : 'Profundidad (DFS)';
+  $: algorithmLabel = algorithm === 'ucs' ? 'Costo Uniforme (UCS)' : algorithm === 'astar' ? 'A* (A Estrella)' : 'Profundidad (DFS)';
 </script>
 
 <div class="app">
@@ -87,7 +91,7 @@
   <header class="app-header">
     <div class="header-content">
       <div class="header-title">
-        <span class="header-icon">🗺️</span>
+        <img src="/src/assets/chiva.png" alt="Chiva" class="header-icon" />
         <div>
           <h1>Rutas por Colombia</h1>
           <p>Planificador inteligente de viajes entre capitales departamentales</p>
@@ -142,6 +146,14 @@
               </span>
               <span class="algo-badge dfs">DFS</span>
             </label>
+            <label class="radio-label">
+              <input type="radio" bind:group={algorithm} value="astar" />
+              <span class="radio-text">
+                <span class="algo-name">A Estrella</span>
+                <span class="algo-desc">Óptimo con heurística</span>
+              </span>
+              <span class="algo-badge astar">A*</span>
+            </label>
           </div>
         </div>
 
@@ -168,7 +180,7 @@
         <section class="result-section">
           <h2 class="section-title">
             Resultado
-            <span class="result-algo-badge" class:ucs={algorithm === 'ucs'} class:dfs={algorithm === 'dfs'}>
+            <span class="result-algo-badge" class:ucs={algorithm === 'ucs'} class:dfs={algorithm === 'dfs'} class:astar={algorithm === 'astar'}>
               {algorithmLabel}
             </span>
           </h2>
@@ -310,7 +322,9 @@
   }
 
   .header-icon {
-    font-size: 1.4rem;
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
   }
 
   h1 {
@@ -488,6 +502,12 @@
     border: 1px solid rgba(69, 123, 157, 0.3);
   }
 
+  .algo-badge.astar {
+    background: rgba(42, 157, 143, 0.15);
+    color: #2a9d8f;
+    border: 1px solid rgba(42, 157, 143, 0.3);
+  }
+
   /* boton principal */
   .btn-search {
     width: 100%;
@@ -597,6 +617,11 @@
   .result-algo-badge.dfs {
     background: rgba(69, 123, 157, 0.12);
     color: var(--accent-dfs);
+  }
+
+  .result-algo-badge.astar {
+    background: rgba(42, 157, 143, 0.12);
+    color: #2a9d8f;
   }
 
   /* panel de historial */

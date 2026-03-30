@@ -29,7 +29,7 @@ history.subscribe(value => {
 /**
  * agrega una nueva entrada al inicio del historial
  * mantiene un maximo de 50 entradas para no saturar el localstorage
- * @param {{ origin, destination, algorithm, path, cost, date }} entry
+ * @param {{ origin: any, destination: any, algorithm: any, path: any, cost: any, steps: any, explored: any, date: any }} entry
  */
 export function addToHistory(entry) {
   history.update(prev => [entry, ...prev].slice(0, 50));
